@@ -26,12 +26,15 @@ def loadDataSet(filename):
             for featrue in line.split(','):
                 # strip()返回移除字符串头尾指定的字符生成的新字符串
                 str_f = featrue.strip()
-                if str_f.isdigit():   # 判断是否是数字
-                    # 将数据集的第column列转换成float形式
-                    lineArr.append(float(str_f))
-                else:
+
+                # isdigit 如果是浮点型数值，就是 false，所以换成 isalpha() 函数
+                # if str_f.isdigit():   # 判断是否是数字
+                if str_f.isalpha():     # 如果是字母，说明是标签
                     # 添加分类标签
                     lineArr.append(str_f)
+                else:
+                    # 将数据集的第column列转换成float形式
+                    lineArr.append(float(str_f))
             dataset.append(lineArr)
     return dataset
 
@@ -302,7 +305,7 @@ def evaluate_algorithm(dataset, algorithm, n_folds, *args):
 if __name__ == '__main__':
 
     # 加载数据
-    dataset = loadDataSet('data/7.RandomForest/sonar-all-data.txt')
+    dataset = loadDataSet('D:/AiLearning/data/7.RandomForest/sonar-all-data.txt')
     # print(dataset)
 
     n_folds = 5        # 分成5份数据，进行交叉验证

@@ -23,7 +23,7 @@ def load_data_set():
     """
     data_arr = []
     label_arr = []
-    f = open('data/5.Logistic/TestSet.txt', 'r')
+    f = open('D:/AiLearning/data/5.Logistic/TestSet.txt', 'r')
     for line in f.readlines():
         line_arr = line.strip().split()
         # 为了方便计算，我们将 X0 的值设为 1.0 ，也就是在每一行的开头添加一个 1.0 作为 X0
@@ -141,10 +141,18 @@ def stoc_grad_ascent1(data_mat, class_labels, num_iter=150):
     :param num_iter: 迭代次数
     :return: 得到的最佳回归系数
     """
+
+    import matplotlib.pyplot as plt
+    iter_x1 =[]
+    error_y = []
+    iter_x2 = []
+    w0,w1,w2=[],[],[]
+
     m, n = np.shape(data_mat)
     weights = np.ones(n)
     for j in range(num_iter):
         # 这里必须要用list，不然后面的del没法使用
+        error_sum = 0
         data_index = list(range(m))
         for i in range(m):
             # i和j的不断增大，导致alpha的值不断减少，但是不为0
@@ -156,6 +164,24 @@ def stoc_grad_ascent1(data_mat, class_labels, num_iter=150):
             error = class_labels[data_index[rand_index]] - h
             weights = weights + alpha * error * data_mat[data_index[rand_index]]
             del(data_index[rand_index])
+
+            error_sum += error
+            iter_x1.append((j*num_iter+i))
+            w0.append(weights[0])
+            w1.append(weights[1])
+            w2.append(weights[2])
+        error_y.append(error_sum/m)
+        iter_x2.append(j)
+    fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2)
+    ax1.plot(iter_x1, w0)
+    ax1.set(title='w0')
+    ax2.plot(iter_x1, w1)
+    ax2.set(title='w1')
+    ax3.plot(iter_x1, w2)
+    ax3.set(title='w2')
+    ax4.plot(iter_x2, error_y)
+    ax4.set(title='error')
+
     return weights
 
 
@@ -194,8 +220,8 @@ def colic_test():
     打开测试集和训练集，并对数据进行格式化处理,其实最主要的的部分，比如缺失值的补充（真的需要学会的），人家已经做了
     :return: 
     """
-    f_train = open('data/5.Logistic/HorseColicTraining.txt', 'r')
-    f_test = open('data/5.Logistic/HorseColicTest.txt', 'r')
+    f_train = open('D:/AiLearning/data/5.Logistic/HorseColicTraining.txt', 'r')
+    f_test = open('D:/AiLearning/data/5.Logistic/HorseColicTest.txt', 'r')
     training_set = []
     training_labels = []
     # 解析训练数据集中的数据特征和Labels
@@ -239,7 +265,7 @@ def multi_test():
 
 if __name__ == '__main__':
     # 请依次运行下面三个函数做代码测试
-    test()
+    # test()
     # colic_test()
-    # multi_test()
+    multi_test()
 

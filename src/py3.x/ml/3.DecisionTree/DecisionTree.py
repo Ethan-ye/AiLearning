@@ -387,7 +387,7 @@ def ContactLensesTest():
     """
 
     # 加载隐形眼镜相关的 文本文件 数据
-    fr = open('data/3.DecisionTree/lenses.txt')
+    fr = open('d:/AiLearning/data/3.DecisionTree/lenses.txt')
     # 解析数据，获得 features 数据
     lenses = [inst.strip().split('\t') for inst in fr.readlines()]
     # 得到数据的对应的 Labels
@@ -397,7 +397,6 @@ def ContactLensesTest():
     print(lensesTree)
     # 画图可视化展现
     dtPlot.createPlot(lensesTree)
-
 
 if __name__ == "__main__":
     # fishTest()

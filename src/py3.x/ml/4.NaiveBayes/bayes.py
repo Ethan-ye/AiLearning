@@ -315,7 +315,7 @@ def local_words(feed1, feed0):
     class_list = []
     full_text = []
     # 找出两个中最小的一个
-    min_len = min(len(feed0), len(feed1))
+    min_len = min(len(feed1['entries']), len(feed0['entries']))    # min_len = min(len(feed0), len(feed1))
     for i in range(min_len):
         # 类别　１
         word_list = text_parse(feed1['entries'][i]['summary'])
